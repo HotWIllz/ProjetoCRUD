@@ -5,6 +5,8 @@
  */
 package Janelas;
 
+import BD.Conexao;
+
 /**
  *
  * @author William
@@ -209,7 +211,7 @@ public class CadastroProduto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrarActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_jBCadastrarActionPerformed
 
     /**
