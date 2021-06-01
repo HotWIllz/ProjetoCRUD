@@ -15,25 +15,25 @@ import javax.swing.table.AbstractTableModel;
  * @author William
  */
 public class ProdutoTableModel extends AbstractTableModel {
-    
+
     private List<Produto> dados = new ArrayList<>();
     private String[] colunas = {"Descrição", "Quantidade", "Valor"};
-    
+
     @Override
     public String getColumnName(int column) {
         return colunas[column];
     }
-    
+
     @Override
     public int getRowCount() {
         return dados.size();
     }
-    
+
     @Override
     public int getColumnCount() {
         return colunas.length;
     }
-    
+
     @Override
     public Object getValueAt(int linha, int coluna) {
         switch (coluna) {
@@ -43,11 +43,11 @@ public class ProdutoTableModel extends AbstractTableModel {
                 return dados.get(linha).getQuantidade();
             case 2:
                 return dados.get(linha).getValor();
-            
+
         }
         return null;
     }
-    
+
     @Override
     public void setValueAt(Object valor, int linha, int coluna) {
         switch (coluna) {
@@ -63,14 +63,19 @@ public class ProdutoTableModel extends AbstractTableModel {
         }
         this.fireTableRowsUpdated(linha, linha);
     }
+
     //Método para adicionar linhas na tabela
-    public void addLinha(Produto p){
+    public void addLinha(Produto p) {
         this.dados.add(p);
         this.fireTableDataChanged();
     }
-    
-    public void removeLinha(int linha){
+
+    public void removeLinha(int linha) {
         this.dados.remove(linha);
         this.fireTableRowsDeleted(linha, linha);
+    }
+
+    public Produto pegaDadosLinha(int linha) {
+        return dados.get(linha);
     }
 }
