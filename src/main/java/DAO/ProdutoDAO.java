@@ -87,5 +87,24 @@ public class ProdutoDAO {
             Conexao.closeConnection(con, stmt);
         }
     }
+    
+    public void delete(Produto p) {
+        Connection con = Conexao.getConnection();
+        PreparedStatement stmt = null;
+
+        try {
+            stmt = con.prepareStatement("DELETE FROM tbl_produto WHERE id = ?");
+            stmt.setInt(1, p.getId());
+            
+
+            stmt.execute();
+            JOptionPane.showMessageDialog(null, "Removido com sucesso!");
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Falha ao remover " + e);
+        } finally {
+            Conexao.closeConnection(con, stmt);
+        }
+    }
 
 }

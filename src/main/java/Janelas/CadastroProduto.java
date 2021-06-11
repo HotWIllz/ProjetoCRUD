@@ -56,6 +56,7 @@ public class CadastroProduto extends javax.swing.JFrame {
         jBCadastrar = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTProdutos = new javax.swing.JTable();
+        jBUsuarios = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -112,6 +113,12 @@ public class CadastroProduto extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel4.setText("Valor");
 
+        jTQuantidade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTQuantidadeActionPerformed(evt);
+            }
+        });
+
         jBRemover.setText("Remover");
         jBRemover.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -151,6 +158,13 @@ public class CadastroProduto extends javax.swing.JFrame {
         });
         jScrollPane4.setViewportView(jTProdutos);
 
+        jBUsuarios.setText("Gerenciar Usuários");
+        jBUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBUsuariosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -173,6 +187,7 @@ public class CadastroProduto extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jBUsuarios)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jBCadastrar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -202,7 +217,9 @@ public class CadastroProduto extends javax.swing.JFrame {
                     .addComponent(jBCadastrar))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addComponent(jBUsuarios)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -210,13 +227,13 @@ public class CadastroProduto extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(252, 252, 252)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(191, 191, 191)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -224,8 +241,8 @@ public class CadastroProduto extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -264,7 +281,11 @@ public class CadastroProduto extends javax.swing.JFrame {
 
     private void jBRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBRemoverActionPerformed
         if (jTProdutos.getSelectedRow() != -1) {
-            modelo.removeLinha(jTProdutos.getSelectedRow());
+            Produto p = modelo.pegaDadosLinha(jTProdutos.getSelectedRow());
+            ProdutoDAO dao = new ProdutoDAO();
+            dao.delete(p);
+            
+            modelo.recarregaTabela();
         }
     }//GEN-LAST:event_jBRemoverActionPerformed
 
@@ -288,6 +309,15 @@ public class CadastroProduto extends javax.swing.JFrame {
         jTQuantidade.setText(String.valueOf(p.getQuantidade()));
         jTValor.setText(String.valueOf(p.getValor()));
     }//GEN-LAST:event_jTProdutosMouseClicked
+
+    private void jBUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBUsuariosActionPerformed
+        JanelaUsuarios ju = new JanelaUsuarios();
+        ju.setVisible(true);
+    }//GEN-LAST:event_jBUsuariosActionPerformed
+
+    private void jTQuantidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTQuantidadeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTQuantidadeActionPerformed
     public void limpaCampos() {
         jTDesricao.setText("");
         jTQuantidade.setText("");
@@ -335,6 +365,7 @@ public class CadastroProduto extends javax.swing.JFrame {
     private javax.swing.JButton jBAlterar;
     private javax.swing.JButton jBCadastrar;
     private javax.swing.JButton jBRemover;
+    private javax.swing.JButton jBUsuarios;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
