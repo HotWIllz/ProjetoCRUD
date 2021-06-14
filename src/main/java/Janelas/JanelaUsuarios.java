@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 public class JanelaUsuarios extends javax.swing.JFrame {
 
     UsuariosTableModel modelo = new UsuariosTableModel();
+    CadastroProduto cp;
 
     /**
      * Creates new form Usuarios
@@ -28,6 +29,18 @@ public class JanelaUsuarios extends javax.swing.JFrame {
         jCTipo.removeAllItems();
         jCTipo.addItem("ADM");
         jCTipo.addItem("USR");
+
+    }
+    
+    public JanelaUsuarios(CadastroProduto cp) {
+        initComponents();
+        jTUsuarios.setModel(modelo);
+        modelo.recarregaTabela();
+        jCTipo.removeAllItems();
+        jCTipo.addItem("ADM");
+        jCTipo.addItem("USR");
+        jCTipo.setSelectedIndex(1);
+        this.cp = cp;
 
     }
 
@@ -72,6 +85,11 @@ public class JanelaUsuarios extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel1.setText("Usuários");
@@ -321,6 +339,10 @@ public class JanelaUsuarios extends javax.swing.JFrame {
     private void jCTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCTipoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jCTipoActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        cp.setVisible(true);
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
